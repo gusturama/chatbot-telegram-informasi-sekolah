@@ -1,10 +1,11 @@
 import telebot
 import os
+from os import environ
 from telebot import types
 
 
-token = os.environ.get('BOT-SEKOLAH')
-bot = telebot.TeleBot(token)
+BOT_TOKEN = environ['BOT-TOKEN']
+bot = telebot.TeleBot(BOT_TOKEN)
 
 # menu atau command utama chatbot
 @bot.message_handler(commands=['start', 'help', 'MENU_UTAMA'])
