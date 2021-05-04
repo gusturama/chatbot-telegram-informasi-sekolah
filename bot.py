@@ -4,7 +4,7 @@ from os import environ
 from telebot import types
 
 
-BOT_TOKEN = environ['BOT-TOKEN']
+BOT_TOKEN = '1737660531:AAG0dmz1zcmaz0kBBGMKessuqzAh1iaz3sU' #environ['BOT-TOKEN']
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # menu command 
