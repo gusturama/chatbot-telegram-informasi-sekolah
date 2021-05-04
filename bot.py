@@ -7,7 +7,7 @@ from telebot import types
 BOT_TOKEN = environ['BOT-TOKEN']
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# menu atau command utama chatbot
+# menu command utama chatbot
 @bot.message_handler(commands=['start', 'help', 'MENU_UTAMA'])
 def send_welcome(message):
     nama_user = message.from_user.first_name + " " + message.from_user.last_name
