@@ -12,7 +12,7 @@ bot = telebot.TeleBot(BOT_TOKEN)
 def send_welcome(message):
     nama_user = message.from_user.first_name + " " + message.from_user.last_name
 
-    bot.reply_to(message, "Halo {} ,Selamat datang di chatbot informasi SMKN 1 Mas Ubud, Informasi apa yang kamu butuhkan?".format(nama_user))
+    bot.reply_to(message, "Halo {} ,Selamat datang di chatbot informasi SMKN 1 Mas Ubud, Informasi apa yang kamu butuhkan? 😊".format(nama_user))
     markup_awal = types.ReplyKeyboardMarkup(row_width=2)
     itembtn1 = types.KeyboardButton('Visi dan Misi')
     itembtn2 = types.KeyboardButton('Jurusan')
