@@ -3,8 +3,11 @@ import os
 from os import environ
 from telebot import types
 
+# untuk run di cloud server heroku
+BOT_TOKEN =  environ['BOT-TOKEN'] 
+# untuk run di local
+# BOT_TOKEN = os.environ.get('BOT_TOKEN') 
 
-BOT_TOKEN = '1737660531:AAG0dmz1zcmaz0kBBGMKessuqzAh1iaz3sU' #environ['BOT-TOKEN'] #
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # menu command 
@@ -32,11 +35,6 @@ def butuh_info_lain(message):
     itembtn2 = types.KeyboardButton('Tidak ❌')
     markup_info_lain.add(itembtn1, itembtn2)
     bot.send_message(message.chat.id,'Apa kamu butuh informasi lain? 😄', reply_markup=markup_info_lain)
-
-# butuh informasi lain?
-# def butuh_info_lain(message):
-#     markup = types.ReplyKeyboardRemove()
-#     bot.send_message(message.chat.id,'Kembali ke menu utama? -->  /MENU_UTAMA', reply_markup=markup)
 
 #list command informasi
 @bot.message_handler(content_types=['text'])
