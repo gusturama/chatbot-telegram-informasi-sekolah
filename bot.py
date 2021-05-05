@@ -4,7 +4,7 @@ from os import environ
 from telebot import types
 
 
-BOT_TOKEN = environ['BOT-TOKEN'] #'1737660531:AAG0dmz1zcmaz0kBBGMKessuqzAh1iaz3sU' #
+BOT_TOKEN = '1737660531:AAG0dmz1zcmaz0kBBGMKessuqzAh1iaz3sU' #environ['BOT-TOKEN'] #
 bot = telebot.TeleBot(BOT_TOKEN)
 
 # menu command 
@@ -12,7 +12,9 @@ bot = telebot.TeleBot(BOT_TOKEN)
 def send_welcome(message):
     nama_user = message.from_user.first_name + " " + message.from_user.last_name
 
-    bot.reply_to(message, "Halo {} ,Selamat datang di chatbot informasi SMKN 1 Mas Ubud, Informasi apa yang kamu butuhkan? 😊".format(nama_user))
+    bot.reply_to(message, """
+        Halo {} 👋
+        Saya Stikmas BOT chatbot informasi SMKN 1 Mas Ubud, Informasi apa yang kamu butuhkan? 😄""".format(nama_user))
     markup_awal = types.ReplyKeyboardMarkup(row_width=2)
     itembtn1 = types.KeyboardButton('Visi dan Misi')
     itembtn2 = types.KeyboardButton('Jurusan')
@@ -24,9 +26,17 @@ def send_welcome(message):
     bot.send_message(message.chat.id, "Pilih salah satu : ", reply_markup=markup_awal)
 
 # kembali ke menu utama
-def ke_menu_utama(message):
-    markup = types.ReplyKeyboardRemove()
-    bot.send_message(message.chat.id,'Kembali ke menu utama? --> /MENU_UTAMA', reply_markup=markup)
+def butuh_info_lain(message):
+    markup_info_lain = types.ReplyKeyboardMarkup(row_width=1)
+    itembtn1 = types.KeyboardButton('Iya ✅')
+    itembtn2 = types.KeyboardButton('Tidak ❌')
+    markup_info_lain.add(itembtn1, itembtn2)
+    bot.send_message(message.chat.id,'Apa kamu butuh informasi lain? 😄', reply_markup=markup_info_lain)
+
+# butuh informasi lain?
+# def butuh_info_lain(message):
+#     markup = types.ReplyKeyboardRemove()
+#     bot.send_message(message.chat.id,'Kembali ke menu utama? -->  /MENU_UTAMA', reply_markup=markup)
 
 #list command informasi
 @bot.message_handler(content_types=['text'])
@@ -44,7 +54,7 @@ def menu_utama(message):
             6. Tata Kecantikan Rambut (TKR) '''
         .format(nama_user))
 
-        markup_list_jurusan = types.ReplyKeyboardMarkup(row_width=1)
+        markup_list_jurusan = types.ReplyKeyboardMarkup(row_width=3)
         itembtn1 = types.KeyboardButton('RPL')
         itembtn2 = types.KeyboardButton('TKJ')
         itembtn3 = types.KeyboardButton('MM')
@@ -109,7 +119,7 @@ def menu_utama(message):
     
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
     #TKJ
     elif(message.text == 'TKJ'):
         bot.reply_to(message, 
@@ -142,7 +152,7 @@ def menu_utama(message):
         Dari segi peluang kerja setelah lulus sangat banyak peluangnya. Mulai dari menjadi teknisi komputer, teknisi jaringan, membuka toko komputer, atau bisa juga membuka warnet sendiri
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
     #MM
     elif(message.text == 'MM'):
         bot.reply_to(message, 
@@ -159,7 +169,7 @@ def menu_utama(message):
     
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
     #AK
     elif(message.text == 'AK'):
         bot.reply_to(message,
@@ -168,7 +178,7 @@ def menu_utama(message):
  
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
     #AP
     elif(message.text == 'AP'):
         bot.reply_to(message, 
@@ -176,7 +186,7 @@ def menu_utama(message):
             Jurusan ini mempelajari tentang tata cara menjalankan dan menyediakan layanan di dunia pariwisata. Lulusannya akan menjadi sumber daya manusia di berbagai perusahaan bidang pariwisata dan layanan. Baik itu hotel, restoran, tempat wisata, pemandu wisata, dan lain sebagainya.
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
     #TKR
     elif(message.text == 'TKR'):
         bot.reply_to(message, 
@@ -193,7 +203,7 @@ def menu_utama(message):
     
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
 
     #Visi dan Misi Sekolah
     elif(message.text == 'Visi dan Misi'):
@@ -208,7 +218,7 @@ def menu_utama(message):
         4. Mengolah potensi daerah menjadi aset potensial
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
     #Pencapaian Sekolah
     elif(message.text == 'Pencapaian Sekolah'):
         bot.reply_to(message, 
@@ -217,7 +227,7 @@ def menu_utama(message):
 
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
     #SPP
     elif(message.text == 'SPP'):
         bot.reply_to(message, 
@@ -226,7 +236,7 @@ def menu_utama(message):
 
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
     #Tata Tertib Sekolah
     elif(message.text == 'Tata Tertib Sekolah'):
         bot.reply_to(message, 
@@ -235,7 +245,7 @@ def menu_utama(message):
 
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
     #Kontak Sekolah
     elif(message.text == 'Kontak Sekolah'):
         bot.reply_to(message, 
@@ -245,7 +255,31 @@ def menu_utama(message):
             Email		: info@smkn1mas.sch.id
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
+    #Butuh Informasi Lain? IYA
+    elif(message.text == 'Iya ✅'):
+        bot.reply_to(message, 
+        '''
+            Informasi apalagi yang kamu butuhkan? 😄
+
+        '''
+        )
+        markup_awal = types.ReplyKeyboardMarkup(row_width=2)
+        itembtn1 = types.KeyboardButton('Visi dan Misi')
+        itembtn2 = types.KeyboardButton('Jurusan')
+        itembtn3 = types.KeyboardButton('Pencapaian Sekolah')
+        itembtn5 = types.KeyboardButton('SPP')
+        itembtn6 = types.KeyboardButton('Tata Tertib Sekolah')
+        itembtn7 = types.KeyboardButton('Kontak Sekolah')
+        markup_awal.add(itembtn1, itembtn2, itembtn3, itembtn5, itembtn6, itembtn7)
+        bot.send_message(message.chat.id, "Pilih salah satu : ", reply_markup=markup_awal)
+    #Butuh Informasi lain? TIDAK
+    elif(message.text == 'Tidak ❌'):
+        markup_tanya = types.ReplyKeyboardMarkup(row_width=1)
+        itembtn1 = types.KeyboardButton('/start')
+        markup_tanya.add(itembtn1)
+        bot.send_message(message.chat.id,'Terimakasih sudah menggunakan STIKMAS BOT  👋', reply_markup=markup_tanya)
+    
     #jika tidak ada pada list command
     else:
         bot.reply_to(message,
@@ -254,7 +288,7 @@ def menu_utama(message):
             Kembali ke menu utama untuk melihat list command
         '''
         )
-        ke_menu_utama(message)
+        butuh_info_lain(message)
 
 print("--- bot sedang berjalan ---")
 bot.polling()
