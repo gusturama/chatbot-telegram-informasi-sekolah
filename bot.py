@@ -6,7 +6,7 @@ from telebot import types
 # untuk run di cloud server heroku
 BOT_TOKEN =  environ['BOT-TOKEN'] 
 # untuk run di local
-# BOT_TOKEN = os.environ.get('BOT_TOKEN') 
+#BOT_TOKEN = os.environ.get('BOT_TOKEN') 
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -23,18 +23,10 @@ def send_welcome(message):
     itembtn2 = types.KeyboardButton('Jurusan')
     itembtn3 = types.KeyboardButton('Pencapaian Sekolah')
     itembtn5 = types.KeyboardButton('SPP')
-    itembtn6 = types.KeyboardButton('Tata Tertib Sekolah')
+    itembtn6 = types.KeyboardButton('Ekstrakulikuler')
     itembtn7 = types.KeyboardButton('Kontak Sekolah')
     markup_awal.add(itembtn1, itembtn2, itembtn3, itembtn5, itembtn6, itembtn7)
     bot.send_message(message.chat.id, "Pilih salah satu : ", reply_markup=markup_awal)
-
-# kembali ke menu utama
-def butuh_info_lain(message):
-    markup_info_lain = types.ReplyKeyboardMarkup(row_width=1)
-    itembtn1 = types.KeyboardButton('Iya ✅')
-    itembtn2 = types.KeyboardButton('Tidak ❌')
-    markup_info_lain.add(itembtn1, itembtn2)
-    bot.send_message(message.chat.id,'Apa kamu butuh informasi lain? 😄', reply_markup=markup_info_lain)
 
 #list command informasi
 @bot.message_handler(content_types=['text'])
@@ -223,6 +215,13 @@ def menu_utama(message):
         '''
             Prestasi dan Pencapaian Sekolah
 
+            •	Prestasi Lomba Akutansi se Indonesia
+            Peringkat ke-4 diraih oleh siswa-siswi SMK N 1 Mas Ubud dalam Lomba Akuntansi tingkat SMK Se- Indonesia yang diadakan oleh Trisakti School Management
+
+            •	Prestasi Dalam Lomba Baligrafi
+            Baligrafi, merupakan konsep yang memadukan aksara Bali (wreastra, swalalita, wijaksara dan modre) ke dalam visual art yang melahirkan sebuah karya seni yang indah.Persiapan yang matang, serta bimbingan oleh 2 guru pembimbing yakni I Made Astawa (Pelatih Konsep) dan Dewa Made Sudana (Art) berhasil mengantarkan I Made Yoga Purwana meraih juara 2, adapun tema yang dipilih adalah Aksara Panaweng Gering yang intinya berupa rangkaian aksara modre mirib rerajahan berfungsi sebagai penolak bala, penolak penyakit, menjaga keselamatan.
+
+
         '''
         )
         butuh_info_lain(message)
@@ -232,14 +231,27 @@ def menu_utama(message):
         '''
             Informasi SPP Sekolah
 
+            Pembayaran SPP tahun ajaran 2020/2021:
+            Rp. 150.000 /bulan
+
+
         '''
         )
         butuh_info_lain(message)
     #Tata Tertib Sekolah
-    elif(message.text == 'Tata Tertib Sekolah'):
+    elif(message.text == 'Ekstrakulikuler'):
         bot.reply_to(message, 
         '''
-            Tata Tertib Sekolah
+            Daftar Extrakulikuler        
+            •	Tari
+            •	Kspan
+            •	Band
+            •	Paskib
+            •	Nyurat lontar
+            •	Dance
+            •	Gateball
+            •	Volley
+
 
         '''
         )
@@ -267,7 +279,7 @@ def menu_utama(message):
         itembtn2 = types.KeyboardButton('Jurusan')
         itembtn3 = types.KeyboardButton('Pencapaian Sekolah')
         itembtn5 = types.KeyboardButton('SPP')
-        itembtn6 = types.KeyboardButton('Tata Tertib Sekolah')
+        itembtn6 = types.KeyboardButton('Ekstrakulikuler')
         itembtn7 = types.KeyboardButton('Kontak Sekolah')
         markup_awal.add(itembtn1, itembtn2, itembtn3, itembtn5, itembtn6, itembtn7)
         bot.send_message(message.chat.id, "Pilih salah satu : ", reply_markup=markup_awal)
@@ -287,6 +299,14 @@ def menu_utama(message):
         '''
         )
         butuh_info_lain(message)
+
+# butuh info lain
+def butuh_info_lain(message):
+    markup_info_lain = types.ReplyKeyboardMarkup(row_width=1)
+    itembtn1 = types.KeyboardButton('Iya ✅')
+    itembtn2 = types.KeyboardButton('Tidak ❌')
+    markup_info_lain.add(itembtn1, itembtn2)
+    bot.send_message(message.chat.id,'Apa kamu butuh informasi lain? 😄', reply_markup=markup_info_lain)
 
 print("--- bot sedang berjalan ---")
 bot.polling()
